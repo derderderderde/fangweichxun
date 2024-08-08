@@ -48,6 +48,7 @@
         .line30 {line-height: 30px;}
         .line40 {line-height: 40px;}
         .line45 {line-height: 55px;}
+        .line120 {line-height: 120px;}
 
         .pt10 {padding-top: 10px;}
         .pt20 {padding-top: 20px;}
@@ -71,7 +72,16 @@
 
         .overflow-y-auto {overflow: auto;}
 
-      
+        .reset-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
     </style>
 </head>
     
@@ -82,40 +92,35 @@
             </div>
             <div class="w100 m0 bg-18A">
                 <div class="w100 m0" style="margin-top: -95px;">
-                    <div class="w100 relative" style="display: none;">
-                        <img src="fangwei1.jpg" alt="" id="bg_1" class="w100 block">
-                        <div class="w100 h100 absolute tan item-center betc" style="top: 0px; left: 0px;">
-                            <div class="relative" style="width: 120px; height: 120px;">
-                                <img src="fangwei2.png" alt=" " class="w100">
-                                <div class="w100 h100 absolute text-center colorfff fs20 bold" style="top: 0px; left: 0px; line-height: 120px;">正品</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
-                    <div class="w100 relative">
-                        <img src="fangwei1.jpg" alt="" class="w100 block">
+                    <div id="verification-section" class="w100 relative">
+                        <img id="bg-img" src="fangwei1.jpg" alt="" class="w100 block">
                         <div class="w100 h100 betc tan item-center absolute" style="top: 0px; left: 0px;">
                             <div class="relative" style="width: 120px; height: 120px;">
-                                <img src="yellowq.jpg" alt="" class="w100">
-                                <div class="w100 h100 absolute text-center fs20 colorfff bold" style="top: 4px; left: 0px;">
-                                    <div class="w100 line25 colorfff text-center fs12 pt30">-该防伪码已查询-</div>
-                                    <div class="w100 colorfff text-center">
-                                        <div id="query-count" class="fs24 bold"></div>
-                                        <span class="fs10">次</span>
+                                <img id="icon-img" src="" alt="" class="w100">
+                                <div id="text-container" class="w100 h100 absolute text-center colorfff bold" style="top: 0px; left: 0px;">
+                                    <div id="first-visit-text" class="line120 fs20">正品</div>
+                    
+                                    <div id="subsequent-visit-text" style="display: none;">
+                                        <div class="w100 line25 fs12 pt30">-该防伪码已查询-</div>
+                                        <div class="w100">
+                                            <div id="query-count" class="fs24"></div>
+                                            <span class="fs10">次</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="w100 m0" style="border-bottom: thin dashed rgb(163, 228, 255);">
+                    
+                    <div id="verification-message" class="w100 m0" style="border-bottom: thin dashed rgb(163, 228, 255);">
                         <div class="van-row van-row--flex van-row--justify-center">
                             <div class="van-col van-col--22">
-                               
-                                <div class="w100 fs16 colorfff text-center ptm20" v-show="count>5 && isTrue='1'">您所查询的防伪码已被多次查询，谨防假冒。</div>
+                                <div id="first-visit-message" class="w100 fs16 colorfff text-center ptm20" style="display: none;">您所查询的产品是巴斯夫涂料生产的正品，请放心使用。感谢您的支持！</div>
+                                <div id="subsequent-visit-message" class="w100 fs16 colorfff text-center ptm20" style="display: none;">您所查询的防伪码已被多次查询，谨防假冒。</div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="w100 m0">
                         <div class="w100 m0 pt20">
                             <div class="w100 m0">
@@ -292,31 +297,66 @@
         </div>
     </div>
     
-    <script>
-        window.onload = function() {
-            var firstVisitTime = localStorage.getItem('firstVisitTime');
-            if (!firstVisitTime) {
-                firstVisitTime = new Date();
-                localStorage.setItem('firstVisitTime', firstVisitTime);
-            }
-            document.getElementById('first-query-time').textContent = new Date(firstVisitTime).toLocaleString();
+    
+   
+    <!-- Button to reset query count -->
+<button class="reset-button" onclick="resetQueryCount()">重置访问次数</button>
+
+<script>
+    // Function to get the query count from localStorage
+    function getQueryCount() {
+        return parseInt(localStorage.getItem('queryCount')) || 0;
+    }
+
+    // Function to increment the query count in localStorage
+    function incrementQueryCount() {
+        const count = getQueryCount() + 1;
+        localStorage.setItem('queryCount', count);
+        return count;
+    }
+
+    // Function to reset the query count
+    function resetQueryCount() {
+        localStorage.setItem('queryCount', 0);
+        handleDisplay();  // Refresh the display after resetting
+    }
+
+    // Main function to handle the display logic
+    function handleDisplay() {
+        const queryCount = getQueryCount();
+        const iconImg = document.getElementById('icon-img');
+        const firstVisitText = document.getElementById('first-visit-text');
+        const subsequentVisitText = document.getElementById('subsequent-visit-text');
+        const firstVisitMessage = document.getElementById('first-visit-message');
+        const subsequentVisitMessage = document.getElementById('subsequent-visit-message');
+        const queryCountElement = document.getElementById('query-count');
+
+        if (queryCount === 0) {
+            // First visit
+            iconImg.src = 'fangwei2.png';
+            firstVisitText.style.display = 'block';
+            firstVisitMessage.style.display = 'block';
+            subsequentVisitText.style.display = 'none';
+            subsequentVisitMessage.style.display = 'none';
+        } else {
+            // Subsequent visits
+            iconImg.src = 'yellowq.jpg';
+            firstVisitText.style.display = 'none';
+            firstVisitMessage.style.display = 'none';
+            subsequentVisitText.style.display = 'block';
+            subsequentVisitMessage.style.display = 'block';
+            queryCountElement.textContent = queryCount;
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-        // 获取个人总访问次数，默认为0
-        var totalQueryCount = localStorage.getItem('totalQueryCount') || 0;
+        // Increment the query count for the next visit
+        incrementQueryCount();
+    }
 
-        // 将访问次数转换为数字并递增
-        totalQueryCount = parseInt(totalQueryCount, 10) + 1;
+    // Execute the display logic on page load
+    document.addEventListener('DOMContentLoaded', handleDisplay);
+</script>
 
-        // 更新页面上的访问次数显示
-        document.getElementById('query-count').textContent = totalQueryCount;
 
-        // 将更新后的访问次数存储到 localStorage
-        localStorage.setItem('totalQueryCount', totalQueryCount);
-    });
-
-    </script>
 </body>
 </html>
 
