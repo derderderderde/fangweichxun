@@ -1,319 +1,366 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en"> 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>防伪查询</title>
-    <style>
-        * {box-sizing: border-box;}
-        body {margin: 0; padding: 0; font-family: Arial, sans-serif;}
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=0" name="viewport"/>
+    <link rel="stylesheet" href="C:\Users\Psyche\Desktop\top\bcs.winsafe.cn\css\main">
+    <link rel="stylesheet" href="C:\Users\Psyche\Desktop\top\bcs.winsafe.cn\vant\index">
+    <script src="C:\Users\Psyche\Desktop\top\bcs.winsafe.cn\js\jquery.min"></script>
+    <script src="C:\Users\Psyche\Desktop\top\bcs.winsafe.cn\js\browser.min.js"></script>
+    <script src="C:/Users/Psyche/Desktop/top/bcs.winsafe.cn/js/browser-polyfill.min"></script>
+    <script src="C:\Users\Psyche\Desktop\top\bcs.winsafe.cn\js\vue.min"></script>
+    <script src="C:\Users\Psyche\Desktop\top\bcs.winsafe.cn\vant\vant.min"></script>
 
-        .w100 {width: 100%;}
-        .h100 {height: 100%;}
-        .m0 {margin: 0;}
-        .block {display: block;}
-        .relative {position: relative;}
-        .absolute {position: absolute;}
-        .betc {justify-content: center;}
-        .tan {display: flex;}
-        .item-center {align-items: center;}
-        .text-center {text-align: center;}
-        .bold {font-weight: bold;}
-
-        .label {padding-right: 10px; /* 控制标签与值之间的间距 */}
-        .label .van-col--6 {text-align: left;} /* 确保标签内容左对齐 */
-        .value {text-align: left;} /* 确保值左对齐 */
-        .value .van-col--18 {padding-left: 0;} /* 去除值的左侧间距 */
-
-        .border-bottom {border-bottom: #d8d8d8;}
-        .border-bottom1 {border-bottom: solid thin #F0F2F5;}
-
-        .radius8 {border-radius: 8px;}
-
-        .colorfff {color: #ffffff;}
-        .colorA3E {color: #A3E4FF;}
-        .color323 {color: #32363A;}
-        .bg-FCD {background: #FCD008;}
-        .bg-fff {background: #ffffff;}
-        .bg-18A {background: #18A9E3;}
-
-        .fs10 {font-size: 10px;}
-        .fs12 {font-size: 10px;}
-        .fs14 {font-size: 14px;}
-        .fs16 {font-size: 14px;}
-        .fs20 {font-size: 20px;}
-        .fs24 {font-size: 24px;}
-
-        .line25 {line-height: 25px;}
-        .line30 {line-height: 30px;}
-        .line40 {line-height: 40px;}
-        .line45 {line-height: 55px;}
-
-        .pt10 {padding-top: 10px;}
-        .pt20 {padding-top: 20px;}
-        .pt30 {padding-top: 30px;}
-
-        .pb15 {padding-bottom: 15px;}
-
-        .ptm20 {padding-top: 20px; padding-bottom: 20px;}
-
-        .van-row {display: flex; clear: both; align-items: center;}
-        .van-row--flex {display: flex;}
-        .van-row--justify-center {-webkit-box-pack: center; justify-content: center;}
-
-        .van-col {box-sizing: border-box; min-height: 1px;}
-
-        .van-col--4 {width: 16.66666667%;}
-        .van-col--6 {flex: 0 0 31%;}
-        .van-col--18 {flex: 0 0 55%;}
-        .van-col--22 {width: 88%;}
-
-        .overflow-y-auto {overflow: auto;}
-
-      
-    </style>
+    <script src="C:\Users\Psyche\Desktop\top\bcs.winsafe.cn\js\request"></script>
+    <script src="C:\Users\Psyche\Desktop\top\bcs.winsafe.cn\js\webChaxun" type="text/babel"></script>
 </head>
-    
-    <body style="height: 1400px;">
-        <div id="fangweichaxun" class="w100 h100 m0 overflow-y-auto" style="opacity: 1;">
-            <div id="imgBanner" class="w100 m0">
-                <img src="fangwei4.jpg" alt="" id="banner" class="w100 block">
-            </div>
-            <div class="w100 m0 bg-18A">
-                <div class="w100 m0" style="margin-top: -95px;">
-                    <div class="w100 relative" style="display: none;">
-                        <img src="fangwei1.jpg" alt="" id="bg_1" class="w100 block">
-                        <div class="w100 h100 absolute tan item-center betc" style="top: 0px; left: 0px;">
-                            <div class="relative" style="width: 120px; height: 120px;">
-                                <img src="fangwei2.png" alt=" " class="w100">
-                                <div class="w100 h100 absolute text-center colorfff fs20 bold" style="top: 0px; left: 0px; line-height: 120px;">正品</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w100 relative" style="display: none;">
-                        <img src="fangwei1.jpg" alt="" id="bg_1" class="w100 block">
-                        <div class="w100 h100 absolute tan item-center betc" style="top: 0px; left: 0px;">
-                            <div class="relative" style="width: 120px; height: 120px;">
-                                <img src="red.png" alt=" " class="w100">
-                                <div class="w100 h100 absolute text-center colorfff fs20 bold" style="top: 0px; left: 0px; line-height: 120px;">不存在</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w100 relative" style="display: none;">
-                        <img src="fangwei1.jpg" alt="" id="bg_1" class="w100 block">
-                        <div class="w100 h100 absolute tan item-center betc" style="top: 0px; left: 0px;">
-                            <div class="relative" style="width: 120px; height: 120px;">
-                                <img src="red.png" alt=" " class="w100">
-                                <div class="w100 h100 absolute text-center colorfff fs20 bold" style="top: 0px; left: 0px; line-height: 120px;">存在</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w100 relative">
-                        <img src="fangwei1.jpg" alt="" class="w100 block">
-                        <div class="w100 h100 betc tan item-center absolute" style="top: 0px; left: 0px;">
-                            <div class="relative" style="width: 120px; height: 120px;">
-                                <img src="yellowq.jpg" alt="" class="w100">
-                                <div class="w100 h100 absolute text-center fs20 colorfff bold" style="top: 4px; left: 0px;">
-                                    <div class="w100 line25 colorfff text-center fs12 pt30">-该防伪码已查询-</div>
-                                    <div class="w100 colorfff text-center">
-                                        <span class="fs24 bold">103</span>
-                                        <span class="fs10">次</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w100 m0" style="border-bottom: thin dashed rgb(163, 228, 255);">
-                        <div class="van-row van-row--flex van-row--justify-center">
-                            <div class="van-col van-col--22">
-                                <div class="w100 fs16 colorfff text-center ptm20" style="display: none;">您所查询的产品是巴斯夫涂料生产的正品，请放心使用。感谢您的支持！</div>
-                                <div class="w100 fs16 colorfff text-center ptm20">您所查询的防伪码已被多次查询，谨防假冒。</div>
-                                <div class="w100 fs16 colorfff text-center ptm20" style="display: none;">
-                                    "您所查询的防伪码未激活"
-                                    <br>
-                                    "防伪码:3000473671944708"
-                                </div>
-                                <div class="w100 fs14 colorfff text-center ptm20" style="display: none;">您所查询的防伪码不存在，可能是假冒产品。</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w100 m0">
-                        <div class="w100 m0 pt20">
-                            <div class="w100 m0">
-                                <div class="van-row van-row--flex van-row--justify-center">
-                                    <div class="van-col van-col--22">
-                                        <div class="w100">
-                                            <div class="van-row">
-                                                <div class="van-col van-col--6">
-                                                    <div class="w100 colorA3E line30 label">防伪码</div>
-                                                </div>
-                                                <div class="van-col van-col--18">
-                                                    <div class="w100 colorfff fs16 line30 value">3000473671944708</div>
-                                                </div>
-                                            </div>
-                                            <div class="van-row">
-                                                <div class="van-col van-col--6">
-                                                    <div class="w100 colorA3E line30 label">首次查询</div>
-                                                </div>
-                                                <div class="van-col van-col--18">
-                                                    <div class="w100 colorfff fs16 line30 value">2024-05-25 07:37:07</div>
-                                                </div>
-                                            </div>
-                                            <div class="van-row">
-                                                <div class="van-col van-col--6">
-                                                    <div class="w100 colorA3E line30 label">品牌</div>
-                                                </div>
-                                                <div class="van-col van-col--18">
-                                                    <div class="w100 colorfff fs16 line30 value">Shancai</div>
-                                                </div>
-                                            </div>
-                                            <div class="van-row">
-                                                <div class="van-col van-col--6">
-                                                    <div class="w100 colorA3E line30 label">产品编号</div>
-                                                </div>
-                                                <div class="van-col van-col--18">
-                                                    <div class="w100 colorfff fs16 line30 value">50799036</div>
-                                                </div>
-                                            </div>
-                                            <div class="van-row">
-                                                <div class="van-col van-col--6">
-                                                    <div class="w100 colorA3E line30 label">包装规格</div>
-                                                </div>
-                                                <div class="van-col van-col--18">
-                                                    <div class="w100 colorfff fs16 line30 value">5L/罐</div>
-                                                </div>
-                                            </div>
-                                            <div class="van-row">
-                                                <div class="van-col van-col--6">
-                                                    <div class="w100 colorA3E line30 label">生产批次号</div>
-                                                </div>
-                                                <div class="van-col van-col--18">
-                                                    <div class="w100 colorfff fs16 line30 value">Q132790396</div>
-                                                </div>
-                                            </div>
-                                            <div class="van-row">
-                                                <div class="van-col van-col--6">
-                                                    <div class="w100 colorA3E line30 label">生产商</div>
-                                                </div>
-                                                <div class="van-col van-col--18">
-                                                    <div class="w100 colorfff fs16 line30 value">巴斯夫涂料（广东）有限公司</div>
-                                                </div>
-                                            </div>
-                                            <div class="van-row">
-                                                <div class="van-col van-col--6">
-                                                    <div class="w100 colorA3E line30 label">产地</div>
-                                                </div>
-                                                <div class="van-col van-col--18">
-                                                    <div class="w100 colorfff fs16 line30 value">广东省.江门市</div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w100 m0">
-                            <div class="w100 m0 pt20">
-                                <div class="van-row van-row--flex van-row--justify-center">
-                                    <div class="van-col van-col--22 ">
-                                        <div class="w100 fs16 text-center colorfff line45 ">
-                                            如需要相关咨询，请致电中国区客服热线：
-                                        </div>
-                                        <div class="w100 pt10 fs16 bold text-center colorfff w100">
-                                            <a href="tel:400-055-7779" class="colorfff" style="text-decoration: none;">400-055-7779</a>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-                        </div>
-                        <div class="w100 m0">
-                            <img src="fangwei3.jpg" alt="" class="w100 block">
+<body>
+<div class="w100 h100 m0 overflow-y-auto" id="fangweichaxun" :style="{opacity:opacity}" v-cloak>
+    <div class="w100 m0" id="imgBanner">
+        <img src="fangwei4.jpg" alt="" id="banner" class="w100 block">
+    </div>
+    <div class="w100 m0 bg-18A">
+        <div class="w100 m0" :style="{marginTop: marginTop}">
+            <div class="w100 relative" v-show="count<=5 && isTrue=='1'">
+                <img src="fangweiy1.jpg" alt="" class="w100 block" id="bg_1">
+                <div class="w100 h100 absolute tan item-center betc" style="top: 0;left: 0">
+                    <div style="width: 120px; height:120px;" class="relative">
+                        <img src="fangwei2.png" alt="" class="w100">
+                        <div class="w100 h100 absolute text-center colorfff fs20 blod"
+                            style="top:0;left: 0;line-height: 120px;">
+                            正品
                         </div>
                     </div>
                 </div>
-                <div class="w100 m0 bg-FCD pd15">
-                    <div class="van-row van-row--flex van-row--justify-center">
-                        <div class="van-col van-col--22">
-                            <div class="w100 bg-fff ptm20 radius8">
-                                <div class="van-row van-row--flex van-row--justify-center">
-                                    <div class="van-col van-col--22">
-                                        <div class="w100 ">
-                                            <div class="w100 m0 border-bottom1">
-                                                <a href="https://basfcn.1688.com/" style="text-decoration: none;">
-                                                    <div class="van-row van-row--flex van-row--justify-center">
-                                                        <div class="van-col van-col--22">
-                                                            <div class="w100 line40 color323 fs16">巴斯夫涂料1688品牌站</div> 
-                                                        </div>
-                                                        <div class="van-col van-col--4">
-                                                            <div class="w100 h100 tan item-center betend">
-                                                                <img src="checkmore.jpg" alt="" class="block " style="width: 30px;height: 30px;">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="w100 m0 border-bottom1">
-                                                <a href="https://refinish-coatings.basf.com" style="text-decoration: none;">
-                                                    <div class="van-row van-row--flex van-row--justify-center">
-                                                        <div class="van-col van-col--22">
-                                                            <div class="w100 line40 color323 fs16">巴斯夫汽车修补漆官方网站</div> 
-                                                        </div>
-                                                        <div class="van-col van-col--4">
-                                                            <div class="w100 h100 tan item-center betend">
-                                                                <img src="checkmore.jpg" alt="" class="block" style="width: 30px;height: 30px;">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="w100 m0 border-bottom1">
-                                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4NjQ3NDY4MA==&scene=124#wechat_redirect" style="text-decoration: none;">
-                                                    <div class="van-row van-row--flex van-row--justify-center">
-                                                        <div class="van-col van-col--22">
-                                                            <div class="w100 line40 color323 fs16">巴斯夫涂料官方微信公众号</div> 
-                                                        </div>
-                                                        <div class="van-col van-col--4">
-                                                            <div class="w100 h100 tan item-center betend">
-                                                                <img src="checkmore.jpg" alt="" class="block" style="width: 30px;height: 30px;">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="w100 pt20">
-                                                <div class="w100 pb15 border-bottom">
-                                                    <a href="https://basfcn.1688.com/page/custom1536219909871.shtml?spm=a262s5.11398889.16401748.3.796b4aa0mGsvh5&file=custom1536219909871.shtml">
-                                                        <img src="fangwei8.jpg" alt="" class="w100 block">
-                                                    </a>
-                                                </div>
-                                                <div class="w100 pt10 pb15 border-bottom">
-                                                    <a href="https://detail.1688.com/offer/594742822097.html?spm=a26286.8251493.0.0.221425b2agDqLw">
-                                                        <img src="fangwei7.jpg" alt="" class="w100 block">
-                                                    </a>
-                                                </div>
-                                                <div class="w100 pt10 pb15 border-bottom">
-                                                    <a href="https://s.1688.com/brand/search.htm?keywords=%C5%B5%E7%CD&brandSite=130&brandSiteMediciId=463952">
-                                                        <img src="fangwei9.jpg" alt="" class="w100 block">
-                                                    </a>
-                                                </div>
-                                                <div class="w100 pt10">
-                                                    <a href="https://detail.1688.com/offer/594742822097.html?spm=a26286.8251493.0.0.221425b2agDqLw">
-                                                        <img src="fangwei6.jpg" alt="" class="w100 block">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            </div>
+            <div class="w100 relative" v-show="isTrue=='0'">
+                <img src="./image/fangwei1.png" alt="" class="w100 block" id="bg_1">
+                <div class="w100 h100 absolute tan item-center betc" style="top: 0;left: 0;">
+                    <div style="width: 120px;height: 120px;" class="relative">
+                        <img src="red.png" alt="" class="w100">
+                        <div class="w100 h100 absolute text-center colorfff fs20 bold"
+                             style="top: 0;left: 0;line-height: 120px;">
+                             不存在
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w100 relative" v-show="isTrue='2'">
+                <img src="fangwei1.jpg" alt="" class="w100 block">
+                <div class="w100 h100 absolute tan item-center betc" style="top: 0;left: 0;">
+                    <div style="width: 120px; height: 120px;" class="relative">
+                        <img src="red.png" alt="" class="w100">
+                        <div class="w100 h100 absolute text-center colorfff fs20 blod"
+                            style="width: 0;height: 0;line-height: 120PX;">
+                            存在
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w100 relative" v-show="count>5 && isTrue=='1'">
+                <img src="fangwei1.jpg" alt="" class="w100 block">
+                <div class="w100 h100 absolute tan item-center betc" style="top: 0;left: 0;">
+                    <div style="width: 120px; height: 120px;" class="relative">
+                        <img src="yellowq.jpg" alt="" class="w100">
+                        <div class="w100 h100 absolute text-center colorfff fs20 bold"
+                            style="top: 0;left: 0;">
+                            <div class="w100 h100 absolute text-center colotfff fs20 blod">
+                                -该防伪码已查询-
+                            </div>  
+                            <div class="w100 colorfff text-center">
+                                <span class="fs24 bold">{{count}}</span><span class="fs10">次</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
+        <div class="w100 m0" style="border-bottom: dashed thin #A3E4FF;">
+            <van-row type="flex" justify="center">
+                <van-col span="22">
+                    <div class="w100 fs16 colorfff text-center ptm20" v-show="count<=5 && isTrue=='1'">
+                        您所查询的产品是巴斯夫涂料生产的正品，请放心使用。感谢您的支持！
+                    </div> 
+                    <div class="w100 fs10 colorfff text-center ptm20" v-show="count>5 && isTrue='1'">
+                        您所查询的防伪码已被多次查询，谨防假冒。
+                    </div>
+                    <div class="w100 fs14 colorfff text-center ptm20" v-show="isTure=='2'">
+                        你所查询的防伪码未激活<br/>
+                        防伪码:{{checkResult.barcode}}
+                    </div>
+                    <div class="w100 fs14 colorfff text-center ptm20" v-show="count<0 && isTrue=='0'">
+                        您所查询的防伪码不存在，可能是假冒产品。
+                    </div>
+                </van-col>
+            </van-row>
+        </div>
+        <div class="w100 m0">
+            <div class="w100 m0 pt20">
+                <div class="w100 m0" v-show="count>0 && isTure=='1'">
+                    <van-row type="flex" justify="center">
+                        <van-col span="22">
+                            <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                            防伪码
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.barcode}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div>
+                            <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                            首次查询
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.queryTime}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div>
+                            <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div  class="w100 colorA3E line30">
+                                            品牌
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.productBrand}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div>
+                            <!--  <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                            产品分类
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.productCategory}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div> -->
+                            <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                            产品编号
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.productCode}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div>
+                            <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                            包装规格
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.productSpec}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div>
+                            <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                            生产批次号
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.batch}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div>
+                            <!--  <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                           生产日期
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.productionDate}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div>
+                            <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                            保质期
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.shelfLife}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div> -->
+                            <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                            生产商
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.factory}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div>
+                            <div class="w100">
+                                <van-row type="flex" justify="center">
+                                    <van-col span="6">
+                                        <div class="w100 colorA3E line30">
+                                            产地
+                                        </div>
+                                    </van-col>
+                                    <van-col span="18">
+                                        <div class="w100 colorfff fs14 line30">
+                                            {{checkResult.producingArea}}
+                                        </div>
+                                    </van-col>
+                                </van-row>
+                            </div>
+                        </van-col>
+                    </van-row>
+                </div>
+                <div class="w100 m0">
+                    <div class="w100 m0 pt20">
+                        <van-row type="flex" justify="center">
+                            <van-col span="22">
+                                <div class="w100 fs14 text-center colorfff line30">
+                                    如需要相关咨询，请致电中国区客服热线：
+                                </div>
+                                <div class="w100 pt10 fs16 bold text-center colorfff w100">
+                                    <a href="tel:400-055-7779" class="colorfff">400-055-7779</a>
+                                </div>
+                            </van-col>
+                        </van-row>
+                    </div>
+                </div>
+                <div class="w100 m0">
+                    <img src="fangwei3.jpg" alt="" class="w100 block">
+                </div>
+            </div>
+        </div>
+
+        <div class="w100 m0 bg-FCD pb15">
+            <van-row type="flex" justify="center">
+                <van-col span="22">
+                    <div class="w100 m0 bg-fff ptm20 radius8"> 
+                        <van-row type="flex" justify="center">
+                            <van-col span="22">     
+                                <div class="w100">
+                                    <div class="w100 m0 border-bottom1">
+                                        <a href="https://basfcn.1688.com/">
+                                            <van-row type="flex" justify="center">
+                                                <van-col span="20">
+                                                    <div class="w100 line40 color323 fs14">巴斯夫涂料1688品牌站</div>
+                                                </van-col>
+                                                <van-col span="4">
+                                                    <div class="w100 h100 tan item-center betend">
+                                                        <img src="checkmore.jpg" alt=""
+                                                            style="width: 30px;height: 30px;" class="block"> 
+                                                    </div>
+                                                </van-col>
+                                            </van-row>
+                                        </a>
+                                    </div>
+                                    <div class="w100 m0 border-bottom1">
+                                        <a href="https://refinish-coatings.basf.com">
+                                            <van-row type="flex" justify="center">
+                                                <van-col span="20">
+                                                    <div class="w100 line40 color323 fs14"> 巴斯夫汽车修补漆官方网站</div>
+                                                </van-col>
+                                                <van-col span="4">
+                                                    <div class="w100 h100 tan item-center betend">
+                                                        <img src="checkmore.jpg" alt=""
+                                                             style="width: 30px;height: 30px;" class="block">
+                                                    </div>
+                                                </van-col>
+                                            </van-row>
+                                        </a>
+                                    </div>
+                                    <div class="w100 m0 border-bottom1">
+                                        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4NjQ3NDY4MA==&scene=124#wechat_redirect">
+                                            <van-row type="flex" justify="center">
+                                                <van-col span="20">
+                                                    <div class="w100 line40 color323 fs14">巴斯夫涂料官方微信公众号</div>
+                                                </van-col>
+                                                <van-col span="4">
+                                                    <div class="w100 h100 tan item-center betend">
+                                                        <img src="checkmore.jpg" alt=""
+                                                             style="width: 30px;height: 30px;" class="block">
+                                                    </div>
+                                                </van-col>
+                                            </van-row>
+                                        </a>
+                                    </div>
+                                    <div class="w100 pt20">
+                                        <div class="w100 pb15 border-bottom">
+                                            <a href="https://basfcn.1688.com/page/custom1536219909871.shtml?spm=a262s5.11398889.16401748.3.796b4aa0mGsvh5&file=custom1536219909871.shtml">
+                                                <img src="fangwei8.jpg" alt="" class="block">
+                                            </a>
+                                        </div>
+                                        <div class="w100 pt10 pb15 border-bottom">
+                                            <a href="https://detail.1688.com/offer/594742822097.html?spm=a26286.8251493.0.0.221425b2agDqLw">
+                                                <img src="fangwei7.jpg" alt="" class="w100 block">
+                                            </a>
+                                        </div>
+                                        <div class="w100 pt10 pb15 border-bottom">
+                                            <a href="https://s.1688.com/brand/search.htm?keywords=%C5%B5%E7%CD&brandSite=130&brandSiteMediciId=463952">
+                                                <img src="fangwei9.jpg" alt="" class="w100 block">
+                                            </a>
+                                        </div>
+                                        <div class="w100 pt10">
+                                            <a href="https://refinish-coatings.basf.com/">
+                                                <img src="fangwei6.jpg" alt="" class="w100 block">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </van-col>     
+                        </van-row>
+
+                    </div>    
+                </van-col>
+            </van-row>
+        </div>
+    </div>
+</div>
 </body>
+
 </html>
-
-
-
